@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع للأدعية والقرآن الكريم وأذكار الصباح والمساء">
+    <title>القرآن والأذكار</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23009688' d='M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zM9 9h6v2H9V9zm0 4h6v2H9v-2z'/></svg>" type="image/svg+xml">
+</head>
+<body>
+    <!-- رأس الصفحة -->
+    <header>
+        <h2>🌙 القرآن والأذكار</h2>
+    </header>
+
+    <!-- زر الإعدادات -->
+    <div class="settings-btn" onclick="toggleSettings(event)">⚙️</div>
+
+    <!-- قائمة الإعدادات -->
+    <div class="settings-panel">
+        <h3>🌟 اختر الثيم</h3>
+        <select id="theme-selector" onchange="changeTheme()">
+            <option value="default">🌿 أخضر فاتح</option>
+            <option value="dark">🌙 داكن</option>
+            <option value="blue">💙 أزرق</option>
+            <option value="purple">💜 بنفسجي</option>
+            <option value="pink">🌸 وردي</option>
+            <option value="gray">🩶 رمادي</option>
+            <option value="teal">🦚 تركواز</option>
+            <option value="brown">🤎 بني</option>
+            <option value="cyan">🌊 السماوي</option>
+            <option value="lime">🍋 الليموني</option>
+            <option value="orange">🍊 البرتقالي</option>
+            <option value="olive">🌿 الزيتوني</option>
+            <option value="coral">🐚 المرجاني</option>
+            <option value="turquoise">🏝️ الفيروزي</option>
+            <option value="krizy">🍒 كريزي</option>
+        </select>
+        <div class="social-buttons">
+            <span class="social-btn fb-btn" onclick="window.open('https://www.facebook.com/profile.php?id=61571057172007', '_blank')">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+                    <path d="M12 2.04c-5.5 0-10 4.49-10 10 0 4.96 3.66 9.08 8.44 9.88v-6.99h-2.54v-2.89h2.54v-2.2c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.77l-.44 2.89h-2.33v6.99c4.78-.8 8.44-4.92 8.44-9.88 0-5.51-4.5-10-10-10z"/>
+                </svg>
+            </span>
+            <span class="social-btn tg-btn" onclick="window.open('https://t.me/Drmino02', '_blank')">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+                    <path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm-2.57 15.43l-.86-3.07 5.86-5.3c.23-.21-.12-.52-.34-.31l-6.96 5.23-2.98-.97c-.49-.16-.54-.68-.07-.91l11.62-4.47c.42-.16.76.25.54.64l-2.11 10.02c-.15.71-.73.51-.7-.16z"/>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar">
+        <h3>📖 القائمة</h3>
+        <ul>
+            <li onclick="showSection('dua-section')">📝 أدعية</li>
+            <li onclick="showSection('quran-section')">📖 مكتبة قرآنية</li>
+            <li onclick="showSection('morning-azkar')">🌅 أذكار الصباح</li>
+            <li onclick="showSection('evening-azkar')">🌙 أذكار المساء</li>
+            <li onclick="showSection('prayers-section')">🙏 أدعية مختارة</li>
+            <li onclick="showSection('favorites-section')">⭐ المفضلة</li>
+            <li onclick="showSection('instructions-section')">ℹ️ تعليمات</li>
+            <li onclick="showSection('about-section')">👤 عن الموقع</li>
+        </ul>
+    </div>
+
+    <!-- قسم الأدعية -->
+    <div id="dua-section" class="container section active">
+        <h1 class="fade-in">دعاء اليوم</h1>
+        <div class="dua-container">
+            <p id="dua" class="dua fade-in"></p>
+            <span class="star" onclick="addToFavorites()">⭐</span>
+        </div>
+        <button onclick="getRandomDua()">دعاء عشوائي</button>
+    </div>
+
+    <!-- قسم المكتبة القرآنية -->
+    <div id="quran-section" class="container section">
+        <h1>مكتبة قرآنية</h1>
+        <div class="quran-controls">
+            <select id="reader-selector" onchange="changeReader()">
+                <option value="Alafasy">مشاري العفاسي</option>
+                <option value="Yasser_Ad-Dussary">ياسر الدوسري</option>
+                <option value="AbdulBasit">عبد الباسط عبد الصمد</option>
+            </select>
+            <select id="surah-selector" onchange="loadAyahs()"></select>
+            <select id="ayah-selector" onchange="playAyah()"></select>
+        </div>
+        <div class="audio-player">
+            <audio id="quran-audio" controls></audio>
+        </div>
+    </div>
+
+    <!-- الشريط الجانبي لعرض النص -->
+    <div id="quran-text" class="quran-text"></div>
+
+    <!-- قسم أذكار الصباح -->
+    <div id="morning-azkar" class="container section">
+        <h1>أذكار الصباح</h1>
+        <p id="morning-text"></p>
+    </div>
+
+    <!-- قسم أذكار المساء -->
+    <div id="evening-azkar" class="container section">
+        <h1>أذكار المساء</h1>
+        <p id="evening-text"></p>
+    </div>
+
+    <!-- قسم الأدعية المختارة -->
+    <div id="prayers-section" class="container section">
+        <h1>أدعية مختارة</h1>
+        <p id="daily-prayer"></p>
+    </div>
+
+    <!-- قسم المفضلة -->
+    <div id="favorites-section" class="container section">
+        <h1>المفضلة</h1>
+        <ul id="favorites-list"></ul>
+    </div>
+
+    <!-- قسم التعليمات -->
+    <div id="instructions-section" class="container section">
+        <h1>تعليمات</h1>
+        <p>مرحبًا بك في موقع القرآن والأذكار! استخدم القائمة الجانبية للتنقل بين الأقسام. اضغط على "دعاء عشوائي" لعرض دعاء جديد، أو اختر سورة من المكتبة القرآنية للاستماع والقراءة.</p>
+    </div>
+
+    <!-- قسم عن الموقع -->
+    <div id="about-section" class="container section">
+        <h1>عن الموقع</h1>
+        <p>هذا الموقع مخصص لتقديم الأدعية والقرآن الكريم وأذكار الصباح والمساء بطريقة سهلة وجميلة. تم تطويره بواسطة سيف الدين لخدمة للمسلمين.</p>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <p id="footer-note" class="footer">لا تنسَ أن تدعو لصاحب الموقع 🤲 | تم تطويره بواسطة سيف الدين</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
